@@ -9,6 +9,37 @@
 #ifndef morseTree_hpp
 #define morseTree_hpp
 
-#include <stdio.h>
+#include <string>
+#include <fstream>
+#include <iostream>
+#include <map>
+
+using namespace std;
+
+struct Node{
+    Node* left;
+    Node* right;
+    
+    char data;
+    string code;
+    
+};
+
+class MorseTree{
+private:
+    Node* root = NULL;
+    
+    
+public:
+    MorseTree();
+    ~MorseTree();
+    Node* getRoot(){
+        return root;
+    }
+    void importTree(ifstream resource);
+    
+    
+};
+
 
 #endif /* morseTree_hpp */
