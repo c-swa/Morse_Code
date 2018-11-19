@@ -50,7 +50,7 @@ void createTree(map<char, string> & m, node * n) {
 }
 
 char searchMorse(string s, node * n, int pos) {
-	if (pos >= s.size() || (n->right == NULL & n->left == NULL)) {
+	if ((pos >= s.size()) || (n->right == NULL & n->left == NULL)) {
 		return n->data;
 	}
 	if (s[pos] == '.') {
@@ -80,23 +80,42 @@ int main() {
 	root = new node;
 	root->data = NULL;
 
-	std::string delimiter = " ";
 
-	string encode = "ass";
-	string s;
 	vector<string> e;
 	vector<string> temp;
 	vector<char> d;
-	while (encode.size() != 0) {
+	std::string encode = "ass hello bass";
 
+
+	std::string delimiter = " ";
+	std::string token;
+	int pos = 0;
+	string s;
+
+	while ((pos = encode.find(delimiter)) != std::string::npos) {
+
+		token = encode.substr(0, pos);
+		std::cout << token << std::endl;
+
+		for (int i = token.length(); i > 0; i--) {
+			s = morse[token[token.size() - 1]];
+			e.push_back(s);
+			token.pop_back();
+		}
+
+		encode.erase(0, pos + delimiter.length());
+	}
+
+	for (int i = encode.length(); i > 0; i--) {
 		s = morse[encode[encode.size() - 1]];
 		e.push_back(s);
 		encode.pop_back();
 	}
-	reverse(e.begin(), e.end());
+	std::reverse(e.begin(), e.end());
+
 
 	for (int i = 0; i < e.size(); i++) {
-		cout << e[i] << endl;
+		std::cout << e[i] << endl;
 	}
 
 	createTree(morse, root);
@@ -105,15 +124,14 @@ int main() {
 		d.push_back(searchMorse(string(e[e.size()-1]), root, 0));
 		e.pop_back();
 	}
-
-	reverse(d.begin(), d.end());
+	std::reverse(d.begin(), d.end());
 
 	for (int i = 0; i < d.size(); i++) {
-		cout << d[i];
+		std::cout << d[i];
 	}
-	cout << endl;
+	std::cout << endl;
 
-	system("pause");
+	std::system("pause");
 	morseCode.close();
     return 0;
 }
