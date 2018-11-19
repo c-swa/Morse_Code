@@ -59,6 +59,7 @@ void createTree(std::map<char, string> & m, node * n) {
     }
 }
 
+//searching for the decode character.
 char searchMorse(string searchString, node * n, int searchPosition) {
     if ((searchPosition >= searchString.size()) || (n->right == NULL & n->left == NULL)) {
         return n->data;
@@ -73,6 +74,7 @@ char searchMorse(string searchString, node * n, int searchPosition) {
         return -1;
 }
 
+//Main Function
 int main() {
     
     //Setup input file Stream
@@ -112,7 +114,10 @@ int main() {
     int pushPosition = 0;
     string pushString;
     
-    while ((pushPosition = encodeString.find(delimiter)) != std::string::npos) {
+    //This is Michael's original code -- I rewrote a different method to prevent the
+    //words from getting reversed when printed (and coded/decoded)
+    /*
+     while ((pushPosition = encodeString.find(delimiter)) != std::string::npos) {
         
         token = encodeString.substr(0, pushPosition);
         std::cout << token << std::endl;
@@ -125,6 +130,23 @@ int main() {
         
         encodeString.erase(0, pushPosition + delimiter.length());
     }
+     */
+    
+    //Takes the spaces out of the encode string. and  pushes them to the encoder
+    //string, along with the token
+    for(int i = 0, j = 0; i < encodeString.length(); i++){
+        if(encodeString[i] == ' '){
+            token = encodeString.substr(j, i);
+            j = i+1;
+            while(token.length() != 0){
+                pushString = morseMap[token[token.size()-1]];
+                encoder.push_back(pushString);
+                token.pop_back();
+            }
+        }
+    }
+    
+    
     
     while (encodeString.length() != 0) {
         pushString = morseMap[encodeString[encodeString.size() - 1]];
