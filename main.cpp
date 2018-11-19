@@ -133,16 +133,12 @@ int main() {
      */
     
     //Takes the spaces out of the encode string. and  pushes them to the encoder
-    //string, along with the token
+    //string, along with the token, add a breakpoint and watch variables.
     for(int i = 0, j = 0; i < encodeString.length(); i++){
         if(encodeString[i] == ' '){
-            token = encodeString.substr(j, i);
+            pushString += encodeString.substr(j, i);
             j = i+1;
-            while(token.length() != 0){
-                pushString = morseMap[token[token.size()-1]];
-                encoder.push_back(pushString);
-                token.pop_back();
-            }
+            
         }
     }
     
