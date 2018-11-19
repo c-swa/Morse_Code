@@ -97,7 +97,7 @@ int main() {
 		token = encode.substr(0, pos);
 		std::cout << token << std::endl;
 
-		for (int i = token.length(); i > 0; i--) {
+		while (token.length() != 0){
 			s = morse[token[token.size() - 1]];
 			e.push_back(s);
 			token.pop_back();
@@ -106,7 +106,7 @@ int main() {
 		encode.erase(0, pos + delimiter.length());
 	}
 
-	for (int i = encode.length(); i > 0; i--) {
+	while (encode.length() != 0) {
 		s = morse[encode[encode.size() - 1]];
 		e.push_back(s);
 		encode.pop_back();
