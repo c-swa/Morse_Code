@@ -131,7 +131,7 @@ int main() {
 	}
 	std::cout << endl;
 
-	std::system("pause");
+	getchar();
 	morseCode.close();
     return 0;
 }
