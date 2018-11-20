@@ -10,5 +10,19 @@
 #define morseTree_hpp
 
 #include <stdio.h>
+#include <string>
+#include <map>
+
+struct node
+{
+	char data;
+	struct node *left;
+	struct node *right;
+};
+/*morseTree{
+
+}*/
+
+
 
 #endif /* morseTree_hpp */
