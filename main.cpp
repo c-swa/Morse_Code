@@ -33,18 +33,22 @@ struct node
 };
 
 
-
+//Placing the Node within the tree
 void placeNode(string placeString, node * n, char data, int placePosition) {
+    
+    //End of string size
     if (placePosition >= placeString.size()) {
         n->data = data;
     }
     
+    //Position of character is '.' go left in tree
     if (placeString[placePosition] == '.') {
         if (n->left == NULL)
             n->left = new node;
         placeNode(placeString, n->left, data, ++placePosition);
     }
     
+    //Position of character is '_' go right in tree
     else if (placeString[placePosition] == '_') {
         if (n->right == NULL)
             n->right = new node;
@@ -53,6 +57,7 @@ void placeNode(string placeString, node * n, char data, int placePosition) {
     return;
 }
 
+//Creating the tree for each piece of data given
 void createTree(std::map<char, string> & m, node * n) {
     for (std::map<char, string>::iterator it = m.begin(); it != m.end(); ++it) {
         placeNode(it->second, n, it->first, 0);
@@ -61,15 +66,23 @@ void createTree(std::map<char, string> & m, node * n) {
 
 //searching for the decode character.
 char searchMorse(string searchString, node * n, int searchPosition) {
+    
+    //Found the data, return
     if ((searchPosition >= searchString.size()) || (n->right == NULL & n->left == NULL)) {
         return n->data;
     }
+    
+    //Position of character is '.' go left in tree
     if (searchString[searchPosition] == '.') {
         return searchMorse(searchString, n->left, ++searchPosition);
     }
+    
+    //Position of character is '_' go right in tree
     else if (searchString[searchPosition] == '_') {
         return searchMorse(searchString, n->right, ++searchPosition);
     }
+    
+    //Character Not found
     else
         return -1;
 }
@@ -143,27 +156,37 @@ int main() {
     }
     
     
-    
+    //Adds converted letters to the encoded vector.
     while (encodeString.length() != 0) {
         pushString = morseMap[encodeString[encodeString.size() - 1]];
         encoder.push_back(pushString);
         encodeString.pop_back();
     }
+    
+    //Reverses the order of the encoded vector
     std::reverse(encoder.begin(), encoder.end());
+    
     
     //prints out the morse code.
     for (int i = 0; i < encoder.size(); i++) {
         std::cout << encoder[i] << endl;
     }
     
+    //Creates a tree based on the 
     createTree(morseMap, root);
     
+    
+    //Decodes the string from the encoded vector
     while (encoder.size() != 0) {
         decoder.push_back(searchMorse(string(encoder[encoder.size()-1]), root, 0));
         encoder.pop_back();
     }
+    
+    //Reverses the string from the decoder
     std::reverse(decoder.begin(), decoder.end());
     
+    
+    //Prints out the decoded Vector
     for (int i = 0; i < decoder.size(); i++) {
         std::cout << decoder[i];
     }
